@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#
+# Copyright 2022 Anna Kalygina
+#
+# This program (VisualColoc) is distributed under the terms of the GNU General Public License v3
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# For any enquiries send an email to Anna Kalygina
+# kalygina.anya@gmail.com
+
+## Import Packages
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+import seaborn as sns
+import PIL
+from PIL import Image
+import scipy.ndimage as sp
+from scipy.ndimage import gaussian_filter
+import matplotlib
+
+## define Pearson's Colocalization Coefficient identificator function
+def calculate_PCC(df, step_size, window_size, sigma):
+
+    fives_raw = (df == 5).to_numpy()
+    tens_raw = (df == 10).to_numpy()
+    
+    fives_windowed = np.lib.stride_tricks.sliding_window_view(fives_raw, window_shape=window_size).sum(axis=(2,3))
+    tens_windowed = np.lib.stride_tricks.sliding_window_view(tens_raw, window_shape=window_size).sum(axis=(2,3))
+
+    df_5 = fives_windowed[::step_size, ::step_size]
+    df_10 = tens_windowed[::step_size, ::step_size]
+    
+    PCC = pd.DataFrame(index = range(df_5.shape[0]), columns = range(df_5.shape[1]))
+    fives_bar = df_5.mean().mean()
+    tens_bar = df_10.mean().mean()
+    #print(fives_bar, tens_bar)
+    numerator = 0
+    denumerator = 0
+    for x in range(df_5.shape[1]):
+        for y in range(df_10.shape[0]):
+            if df_5[y,x]==0 and df_10[y,x]==0:
+                numerator = 0
+            else:    
+                numerator = (df_5[y,x] - fives_bar)*(df_10[y,x]-tens_bar)
+                denumerator = ((df_5[y,x] - fives_bar)**2*(df_10[y,x]-tens_bar)**2)**(1/2)
+                PCC.iloc[y,x] = numerator/denumerator
+    PCC_plot = gaussian_filter(PCC.fillna(0).astype(float), sigma=sigma)
+    return(PCC_plot)
+    print(PCC_plot.mean())
