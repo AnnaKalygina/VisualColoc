@@ -4,9 +4,6 @@ This tool enables effective visualization of Pearson's Colocalization Coefficien
 The example of an output data provided below. :
 
 
-![for_github](https://user-images.githubusercontent.com/113347533/189658559-7509ce8b-70f6-408c-ab50-85de558eb75b.png)
-![for_github_1](https://user-images.githubusercontent.com/113347533/189659876-a75b2bba-c1a0-410b-b2b4-35d17a5fdfdc.png)
-
 # Requirements
 - Python 3.4 or later
 - Image J Fiji or any other kind of software that allows particle detection or coordinate identification 
