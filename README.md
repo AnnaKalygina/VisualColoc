@@ -1,1 +1,2 @@
-# VisualColoc
+# VisualColoc packagfe for colocalization analysis and visualization using electron microscopy (EM) data and particle coordinates
+This tool enables effective visualization of Pearson's Colocalization Coefficient (between two particle types) ih a form of a heatmap overlayed on the EM image. The package would be useful for the projects that target immunolabeling and are aiming for particle colocalization analysis and its effective visualization. 
