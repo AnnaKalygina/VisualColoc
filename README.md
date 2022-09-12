@@ -11,5 +11,7 @@ The example of an output data provided below. :
 - Python 3.4 or later
 - Image J Fiji or any other kind of software that allows particle detection or coordinate identification 
 
-The code uses 2 or more CSV files with particle coordinates as input files. For this project ImageJ Fiji software was used to manually find and indentify postions of particles, the coordinates were saved in 2 CSV files corresponding to each particle type. CSV files are preferrably ro be stored in the same folder as the EM image analysed. 
+The code uses 2 or more CSV files with particle coordinates as input data. For this project ImageJ Fiji software was used to manually find and indentify postions of particles, the coordinates were saved in 2 CSV files corresponding to each particle type. CSV files are preferrably to be stored in the same folder as the EM image analysed. 
+
+# Quick Start
 
